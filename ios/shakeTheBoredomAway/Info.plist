@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>helloWorld</string>
+	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -38,27 +38,27 @@
 		</dict>
 	</dict>
 	<key>NSCalendarsUsageDescription</key>
-	<string>Allow helloWorld to access your calendar</string>
+	<string>Allow shakeTheBoredomAway to access your calendar</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Allow helloWorld to use the camera</string>
+	<string>Allow shakeTheBoredomAway to use the camera</string>
 	<key>NSContactsUsageDescription</key>
-	<string>Allow helloWorld experiences to access your contacts</string>
+	<string>Allow shakeTheBoredomAway experiences to access your contacts</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Allow helloWorld to use your location</string>
+	<string>Allow shakeTheBoredomAway to use your location</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Allow helloWorld to use your location</string>
+	<string>Allow shakeTheBoredomAway to use your location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Allow helloWorld to use your location</string>
+	<string>Allow shakeTheBoredomAway to use your location</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Allow helloWorld to access your microphone</string>
+	<string>Allow shakeTheBoredomAway to access your microphone</string>
 	<key>NSMotionUsageDescription</key>
-	<string>Allow helloWorld to access your device's accelerometer</string>
+	<string>Allow shakeTheBoredomAway to access your device's accelerometer</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Give helloWorld periences permission to save photos</string>
+	<string>Give shakeTheBoredomAway periences permission to save photos</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Give helloWorld periences permission to access your photos</string>
+	<string>Give shakeTheBoredomAway periences permission to access your photos</string>
 	<key>NSRemindersUsageDescription</key>
-	<string>Allow helloWorld to access your reminders</string>
+	<string>Allow shakeTheBoredomAway to access your reminders</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>

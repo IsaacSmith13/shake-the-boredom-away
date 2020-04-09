@@ -1,12 +1,9 @@
 {
   "expo": {
-    "name": "helloWorld",
-    "slug": "helloWorld",
+    "name": "shakeTheBoredomAway",
+    "slug": "shakeTheBoredomAway",
     "privacy": "public",
-    "platforms": [
-      "ios",
-      "android"
-    ],
+    "platforms": ["ios", "android"],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -18,9 +15,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "shake-the-boredom-away"

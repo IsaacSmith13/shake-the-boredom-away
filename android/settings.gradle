@@ -1,4 +1,4 @@
-rootProject.name = 'helloWorld'
+rootProject.name = 'shakeTheBoredomAway'
 include ':react-native-shake'
 project(':react-native-shake').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-shake/android')
 

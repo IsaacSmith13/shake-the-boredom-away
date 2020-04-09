@@ -6,7 +6,7 @@ export default function App() {
   const [name, setName] = useState("World");
 
   const handleShake = () => {
-    setName("Isaac");
+    setName("Isaac sucks!");
   };
 
   useEffect(() => {
@@ -15,14 +15,11 @@ export default function App() {
     return () => RNShake.removeEventListener("ShakeEvent");
   }, []);
 
+  console.log("test");
   return (
     <View style={styles.container}>
       <Text style={styles.nameText}>{`Hello, ${name}!`}</Text>
-      <Button
-        color="#4169E1"
-        onPress={() => setName("Katie")}
-        title="Click me"
-      />
+      <Button color="#4169E1" onPress={handleShake} title="Click me" />
     </View>
   );
 }
