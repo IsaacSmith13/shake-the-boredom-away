@@ -3,7 +3,6 @@
     "name": "helloWorld",
     "slug": "helloWorld",
     "privacy": "public",
-    "sdkVersion": "31.0.0",
     "platforms": [
       "ios",
       "android"
