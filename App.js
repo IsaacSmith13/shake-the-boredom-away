@@ -25,43 +25,76 @@ const renderContent = (activity) => {
   }
 };
 
-const renderDefault = (activity) => [
-  !!activity.title ? (
-    <Text style={styles.header}>{activity.title}</Text>
-  ) : undefined,
-  !!activity.description ? (
-    <Text style={styles.description}>{activity.description}</Text>
-  ) : undefined,
-  !!activity.externalLink ? (
-    <Text
-      onPress={() => Linking.openURL(activity.externalLink)}
-      style={styles.hyperlink}
-    >
-      {activity.externalLink}
-    </Text>
-  ) : undefined,
-];
+const renderDefault = (activity) => {
+  const descriptionHasOnPress =
+    !!activity.externalLink && !activity.description2;
 
-const renderSong = (song) => [
-  <Text style={styles.header} key={"header"}>
-    Here's a song recommendation to get you off your seat and start moving!
-  </Text>,
-  <Text
-    style={styles.header}
-    onPress={() => Linking.openURL(song.externalLink)}
-    key={"title"}
-  >
-    Song: <Text style={[styles.hyperlink, styles.header]}>{song.title}</Text>
-  </Text>,
-  <Text style={styles.header} key={"artist"}>
-    Artist: <Text style={styles.header}>{song.artist}</Text>
-  </Text>,
-  song.releaseDate ? (
-    <Text style={styles.header} key={"releaseDate"}>
-      Release Date: <Text style={styles.header}>{song.releaseDate}</Text>
-    </Text>
-  ) : undefined,
-];
+  const content = [];
+
+  if (activity.title) {
+    content.push(<Text style={styles.header}>{activity.title}</Text>);
+  }
+
+  if (activity.description) {
+    content.push(
+      <Text
+        style={descriptionHasOnPress ? styles.hyperlink : styles.description}
+        onPress={
+          descriptionHasOnPress
+            ? () => Linking.openURL(activity.externalLink)
+            : undefined
+        }
+      >
+        {activity.description}
+      </Text>
+    );
+  }
+
+  if (activity.description2) {
+    content.push(
+      <Text
+        style={!!activity.externalLink ? styles.hyperlink : styles.description}
+        onPress={
+          !!activity.externalLink
+            ? () => Linking.openURL(activity.externalLink)
+            : undefined
+        }
+      >
+        {activity.description2}
+      </Text>
+    );
+  }
+
+  return content;
+};
+
+const renderSong = (song) => {
+  const content = [
+    <Text style={styles.header} key={"header"}>
+      Here's a song recommendation to get you off your seat and start moving!
+    </Text>,
+    <Text
+      style={styles.header}
+      onPress={() => Linking.openURL(song.externalLink)}
+      key={"title"}
+    >
+      Song: <Text style={[styles.hyperlink, styles.header]}>{song.title}</Text>
+    </Text>,
+    <Text style={styles.header} key={"artist"}>
+      Artist: <Text style={styles.header}>{song.artist}</Text>
+    </Text>,
+  ];
+
+  if (song.releaseDate) {
+    content.push(
+      <Text style={styles.header} key={"releaseDate"}>
+        Release Date: <Text style={styles.header}>{song.releaseDate}</Text>
+      </Text>
+    );
+  }
+
+  return content;
+};
 
 export default function App() {
   const [activity, setActivity] = useState("World");
