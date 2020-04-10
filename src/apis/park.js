@@ -8,16 +8,14 @@ export const ParkApi = {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log("data", data);
-        console.log("api", ZIP_CODE_APP_KEY);
         return {
           lat: data.lat,
           long: data.lng,
         };
       })
-      .catch(console.log);
-
-    console.log("lat & long", latLong);
+      .catch((err) => {
+        console.log("park error", err);
+      });
 
     return await fetch(
       `https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?f=json&category=park&location=${latLong.long},${latLong.lat}&outFields=Place_addr,PlaceName&maxLocations=5`

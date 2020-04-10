@@ -107,7 +107,7 @@ const renderSong = ({ titleLink, title, releaseDate, artist }) => {
       onPress={() => Linking.openURL(titleLink)}
       key={"title"}
     >
-      Song: <Text style={[styles.hyperlink, styles.header]}>{title}</Text>
+      Song: <Text style={styles.headerHyperlink}>{title}</Text>
     </Text>,
     <Text style={styles.header} key={"artist"}>
       Artist: <Text style={styles.header}>{artist}</Text>
@@ -181,6 +181,13 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     color: "white",
     paddingBottom: 15,
+  },
+  headerHyperlink: {
+    fontSize: 28,
+    fontWeight: "700",
+    paddingBottom: 15,
+    textDecorationLine: "underline",
+    color: "#00bcd4",
   },
   paragraph: {
     fontSize: 18,

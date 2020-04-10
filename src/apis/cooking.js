@@ -23,7 +23,7 @@ export const CookingApi = {
         };
       })
       .catch((err) => {
-        console.log("edamam error", err);
+        console.log("cooking error", err);
       });
   },
 };

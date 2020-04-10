@@ -5,7 +5,6 @@ export const PoetryApi = {
     await fetch("https://www.poemist.com/api/v1/randompoems")
       .then((response) => response.json())
       .then((poems) => {
-        console.log(poems);
         const { title, content, url, poet } = getRandomItemFromArr(poems);
         return {
           header:
@@ -17,6 +16,6 @@ export const PoetryApi = {
         };
       })
       .catch((err) => {
-        console.log("edamam error", err);
+        console.log("poetry error", err);
       }),
 };
