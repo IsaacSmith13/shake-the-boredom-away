@@ -1,6 +1,7 @@
 export const InsideCategories = {
   // streaming: "streaming",
   music: "music",
+  poetry: "poetry",
   // cardGame: "card game",
   // cooking: "cooking",
   // drinkTooMuch: "drink too much",
