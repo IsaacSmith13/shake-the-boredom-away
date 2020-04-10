@@ -51,7 +51,7 @@ async function getActivityForCategory({
   if (OutsideCategories.hasOwnProperty(category)) {
     switch (category) {
       case OutsideCategories.park:
-        return await ParkApi.getRecommendation();
+        return await ParkApi.getRecommendation(zipCode);
       default:
         return {};
     }
