@@ -15,15 +15,15 @@ export const CookingApi = {
       .then(({ hits }) => {
         const { recipe } = getRandomItemFromArr(hits);
         return {
-          description: recipe.label,
-          externalLink: recipe.url,
+          title: recipe.label,
+          titleLink: recipe.url,
           image: recipe.image,
-          title:
+          header:
             "Nothing soothes boredom like food. Try making the following recipe!",
         };
       })
       .catch((err) => {
-        console.log("edamam error", err);
+        console.log("cooking error", err);
       });
   },
 };
