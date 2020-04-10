@@ -15,10 +15,10 @@ export const CookingApi = {
       .then(({ hits }) => {
         const { recipe } = getRandomItemFromArr(hits);
         return {
-          description: recipe.label,
-          descriptionLink: recipe.url,
+          title: recipe.label,
+          titleLink: recipe.url,
           image: recipe.image,
-          title:
+          header:
             "Nothing soothes boredom like food. Try making the following recipe!",
         };
       })
