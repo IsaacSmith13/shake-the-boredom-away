@@ -3,9 +3,8 @@ import { getRandomItemFromArr } from "../utils/getRandomItem.js";
 
 export const ParkApi = {
   getRecommendation: async (zipCode) => {
-    console.log("zipCode", zipCode)
     let latLong = await fetch(
-      `https://us1.locationiq.com/v1/search.php?key=${BETTER_ZIP_KEY}&postalcode=${zipCode}&country=United%20States&format=json`
+      `https://us1.locationiq.com/v1/search.php?key=${BETTER_ZIP_KEY}&postalcode=${zipCode}&format=json`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -18,7 +17,6 @@ export const ParkApi = {
         console.log("Postal code to latitude and longitude API error", err);
       });
 
-      console.log("latitude my friends", latLong.lat, "LONGITUDE", latLong.long)
     return await fetch(
       `https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?f=json&category=park&location=${latLong.long},${latLong.lat}&outFields=Place_addr,PlaceName&maxLocations=5`
     )

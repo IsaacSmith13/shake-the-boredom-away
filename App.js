@@ -133,7 +133,7 @@ export default function App() {
       await getActivity({
         numberOfPeople: 1,
         streamingServices: [StreamingServices.netflix],
-        zipCode: 43040,
+        zipCode: 43215,
       })
     );
   };
