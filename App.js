@@ -4,6 +4,7 @@ import {
   Linking,
   StyleSheet,
   Text,
+  ScrollView,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -144,15 +145,19 @@ export default function App() {
   }, []);
 
   return (
-    <View style={styles.container}>
-      {renderContent(activity)}
-      {!!activity && !!activity.image && (
-        <Image
-          resizeMode={"contain"}
-          source={{ uri: activity.image }}
-          style={styles.image}
-        />
-      )}
+    <View style={styles.fullScreen}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <View style={styles.container}>
+          {renderContent(activity)}
+          {!!activity && !!activity.image && (
+            <Image
+              resizeMode={"contain"}
+              source={{ uri: activity.image }}
+              style={styles.image}
+            />
+          )}
+        </View>
+      </ScrollView>
       <TouchableOpacity style={styles.button} onPress={handleShake}>
         <Text style={styles.buttonText}>Get a suggestion!</Text>
       </TouchableOpacity>
@@ -161,36 +166,42 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#d0d0d0",
-    alignItems: "center",
-    justifyContent: "center",
+  fullScreen: {
+    height: "100%",
+    width: "100%",
+    backgroundColor: "#4d4646",
     paddingHorizontal: 12,
+    paddingTop: 60,
+  },
+  container: {
+    justifyContent: "center",
   },
   header: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: "700",
+    color: "white",
     paddingBottom: 15,
   },
   paragraph: {
-    fontSize: 16,
+    fontSize: 18,
+    color: "white",
     paddingBottom: 15,
   },
   hyperlink: {
-    fontSize: 16,
+    fontSize: 18,
     paddingBottom: 24,
-    color: "blue",
+    textDecorationLine: "underline",
+    color: "#00bcd4",
   },
   image: {
     width: "100%",
-    height: "40%",
+    height: "60%",
   },
   button: {
     width: "100%",
     height: 60,
-    marginTop: 24,
-    backgroundColor: "blue",
+    marginVertical: 24,
+    backgroundColor: "#7fcd91",
     borderRadius: 12,
     justifyContent: "center",
   },
