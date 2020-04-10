@@ -21,7 +21,7 @@
       "bundleIdentifier": "shake-the-boredom-away"
     },
     "android": {
-      "package": "shake-the-boredom-away"
+      "package": "com.kits.shakeTheBoredomAway"
     },
     "entryPoint": "node_modules/expo/AppEntry.js"
   }
