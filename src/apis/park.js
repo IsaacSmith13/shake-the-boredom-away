@@ -8,7 +8,6 @@ export const ParkApi = {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log("data", data);
         return {
           lat: data[0].lat,
           long: data[0].lon,

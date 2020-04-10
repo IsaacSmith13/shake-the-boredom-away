@@ -31,7 +31,7 @@ export const MusicApi = {
           title: song["title"],
           artist: song["primary_artist"]["name"],
           releaseDate: song["release_date"],
-          externalLink: song["url"],
+          titleLink: song["url"],
           category: Categories.music,
         };
       })

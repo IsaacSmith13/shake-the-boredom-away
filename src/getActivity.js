@@ -9,6 +9,7 @@ import { CookingApi } from "./apis/cooking.js";
 import { ParkApi } from "./apis/park.js";
 import { getRandomKeyFromObj } from "./utils/getRandomItem.js";
 import { MusicApi } from "./apis/music.js";
+import { PoetryApi } from "./apis/poetry.js";
 
 let BookApi = (DisneyPlusApi = AmazonPrimeApi = NetflixApi = HuluApi = {
   getRecommendation: () => {
@@ -68,6 +69,8 @@ async function getActivityForCategory({
       return await BookApi.getRecommendation();
     case InsideCategories.music:
       return await MusicApi.getRecommendation();
+    case InsideCategories.poetry:
+      return await PoetryApi.getRecommendation();
     default:
       return {};
   }
