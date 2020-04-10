@@ -12,7 +12,40 @@ import { getActivity } from "./src/getActivity.js";
 import { StreamingServices } from "./src/models/streaming-services.js";
 import { Categories } from "./src/models/categories.js";
 
+const renderContent = (activity) => {
+  if (!activity) {
+    return null;
+  }
+
+  switch (activity.category) {
+    case Categories.music:
+      return renderSong(activity);
+    default:
+      return renderDefault(activity);
+  }
+};
+
+const renderDefault = (activity) => [
+  !!activity.title ? (
+    <Text style={styles.header}>{activity.title}</Text>
+  ) : undefined,
+  !!activity.description ? (
+    <Text style={styles.description}>{activity.description}</Text>
+  ) : undefined,
+  !!activity.externalLink ? (
+    <Text
+      onPress={() => Linking.openURL(activity.externalLink)}
+      style={styles.hyperlink}
+    >
+      {activity.externalLink}
+    </Text>
+  ) : undefined,
+];
+
 const renderSong = (song) => [
+  <Text style={styles.header} key={"header"}>
+    Here's a song recommendation to get you off your seat and start moving!
+  </Text>,
   <Text
     style={styles.header}
     onPress={() => Linking.openURL(song.externalLink)}
@@ -51,26 +84,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      {(!!activity &&
-        activity.category === Categories.music &&
-        renderSong(activity)) || (
-        <>
-          {!!activity && !!activity.title && (
-            <Text style={styles.header}>{activity.title}</Text>
-          )}
-          {!!activity && !!activity.description && (
-            <Text style={styles.description}>{activity.description}</Text>
-          )}
-          {!!activity && !!activity.externalLink && (
-            <Text
-              onPress={() => Linking.openURL(activity.externalLink)}
-              style={styles.hyperlink}
-            >
-              {activity.externalLink}
-            </Text>
-          )}
-        </>
-      )}
+      {renderContent(activity)}
       {!!activity && !!activity.image && (
         <Image
           resizeMode={"contain"}
