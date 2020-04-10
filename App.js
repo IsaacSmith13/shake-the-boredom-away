@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from "react";
 import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
   Image,
   Linking,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import RNShake from "react-native-shake";
 import { getActivity } from "./src/getActivity.js";
 import { StreamingServices } from "./src/models/streaming-services.js";
-import { Categories } from "./src/models/categories.js";
+import {
+  InsideCategories,
+  OutsideCategories,
+} from "./src/models/categories.js";
 
 const renderContent = (activity) => {
   if (!activity) {
@@ -18,49 +21,68 @@ const renderContent = (activity) => {
   }
 
   switch (activity.category) {
-    case Categories.music:
+    case InsideCategories.music:
       return renderSong(activity);
     default:
       return renderDefault(activity);
   }
 };
 
-const renderDefault = (activity) => {
-  const descriptionHasOnPress =
-    !!activity.externalLink && !activity.description2;
-
+const renderDefault = ({
+  description,
+  description2,
+  description2Link,
+  descriptionLink,
+  header,
+  title,
+  titleLink,
+}) => {
   const content = [];
 
-  if (activity.title) {
-    content.push(<Text style={styles.header}>{activity.title}</Text>);
-  }
-
-  if (activity.description) {
+  if (header) {
     content.push(
-      <Text
-        style={descriptionHasOnPress ? styles.hyperlink : styles.description}
-        onPress={
-          descriptionHasOnPress
-            ? () => Linking.openURL(activity.externalLink)
-            : undefined
-        }
-      >
-        {activity.description}
+      <Text style={styles.header} key={"header"}>
+        {header}
       </Text>
     );
   }
 
-  if (activity.description2) {
+  if (title) {
     content.push(
       <Text
-        style={!!activity.externalLink ? styles.hyperlink : styles.description}
+        style={titleLink ? styles.hyperlink : styles.paragraph}
+        onPress={titleLink ? () => Linking.openURL(titleLink) : undefined}
+        key={"title"}
+      >
+        {title}
+      </Text>
+    );
+  }
+
+  if (description) {
+    content.push(
+      <Text
+        key={"description"}
+        style={descriptionLink ? styles.hyperlink : styles.paragraph}
         onPress={
-          !!activity.externalLink
-            ? () => Linking.openURL(activity.externalLink)
-            : undefined
+          descriptionLink ? () => Linking.openURL(descriptionLink) : undefined
         }
       >
-        {activity.description2}
+        {description}
+      </Text>
+    );
+  }
+
+  if (description2) {
+    content.push(
+      <Text
+        key={"description2"}
+        style={description2Link ? styles.hyperlink : styles.paragraph}
+        onPress={
+          description2Link ? () => Linking.openURL(description2Link) : undefined
+        }
+      >
+        {description2}
       </Text>
     );
   }
@@ -68,27 +90,27 @@ const renderDefault = (activity) => {
   return content;
 };
 
-const renderSong = (song) => {
+const renderSong = ({ titleLink, title, releaseDate, artist }) => {
   const content = [
     <Text style={styles.header} key={"header"}>
       Here's a song recommendation to get you off your seat and start moving!
     </Text>,
     <Text
       style={styles.header}
-      onPress={() => Linking.openURL(song.externalLink)}
+      onPress={() => Linking.openURL(titleLink)}
       key={"title"}
     >
-      Song: <Text style={[styles.hyperlink, styles.header]}>{song.title}</Text>
+      Song: <Text style={[styles.hyperlink, styles.header]}>{title}</Text>
     </Text>,
     <Text style={styles.header} key={"artist"}>
-      Artist: <Text style={styles.header}>{song.artist}</Text>
+      Artist: <Text style={styles.header}>{artist}</Text>
     </Text>,
   ];
 
-  if (song.releaseDate) {
+  if (releaseDate) {
     content.push(
       <Text style={styles.header} key={"releaseDate"}>
-        Release Date: <Text style={styles.header}>{song.releaseDate}</Text>
+        Release Date: <Text style={styles.header}>{releaseDate}</Text>
       </Text>
     );
   }
@@ -145,7 +167,7 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     paddingBottom: 15,
   },
-  description: {
+  paragraph: {
     fontSize: 16,
     paddingBottom: 15,
   },

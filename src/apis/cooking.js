@@ -16,7 +16,7 @@ export const CookingApi = {
         const { recipe } = getRandomItemFromArr(hits);
         return {
           description: recipe.label,
-          externalLink: recipe.url,
+          descriptionLink: recipe.url,
           image: recipe.image,
           title:
             "Nothing soothes boredom like food. Try making the following recipe!",
