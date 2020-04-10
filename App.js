@@ -17,7 +17,13 @@ import {
 
 const renderContent = (activity) => {
   if (!activity) {
-    return null;
+    return (
+      <Text style={styles.header}>
+        It's time to shake your quarantine boredom away! Shake your phone or
+        press the button for something that will help stave off that inevitable
+        boredom for a brief time
+      </Text>
+    );
   }
 
   switch (activity.category) {
@@ -119,7 +125,7 @@ const renderSong = ({ titleLink, title, releaseDate, artist }) => {
 };
 
 export default function App() {
-  const [activity, setActivity] = useState("World");
+  const [activity, setActivity] = useState();
 
   const handleShake = async () => {
     setActivity(
@@ -191,6 +197,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "white",
     textAlign: "center",
-    fontSize: 18,
+    fontSize: 24,
+    fontWeight: "700",
   },
 });
