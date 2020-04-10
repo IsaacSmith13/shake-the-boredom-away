@@ -8,7 +8,7 @@ export const InsideCategories = {
 };
 
 export const OutsideCategories = {
-  // park: "park",
+  park: "park",
 };
 
 export const Categories = {

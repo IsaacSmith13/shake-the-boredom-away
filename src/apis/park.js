@@ -1,30 +1,29 @@
-import { ZIP_CODE_APP_KEY } from "../../private-keys.js";
+import { BETTER_ZIP_KEY } from "../../private-keys.js";
 import { getRandomItemFromArr } from "../utils/getRandomItem.js";
 
 export const ParkApi = {
   getRecommendation: async (zipCode) => {
-    const latLong = await fetch(
-      `https://www.zipcodeapi.com/rest/${ZIP_CODE_APP_KEY}/info.json/${zipCode}/degrees`
+    let latLong = await fetch(
+      `https://us1.locationiq.com/v1/search.php?key=${BETTER_ZIP_KEY}&postalcode=${zipCode}&format=json`
     )
       .then((res) => res.json())
       .then((data) => {
         console.log("data", data);
-        console.log("api", ZIP_CODE_APP_KEY);
         return {
-          lat: data.lat,
-          long: data.lng,
+          lat: data[0].lat,
+          long: data[0].lon,
         };
       })
-      .catch(console.log);
-
-    console.log("lat & long", latLong);
+      .catch((err)=>{
+        console.log("Postal code to latitude and longitude API error", err);
+      });
 
     return await fetch(
       `https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?f=json&category=park&location=${latLong.long},${latLong.lat}&outFields=Place_addr,PlaceName&maxLocations=5`
     )
       .then((response) => response.json())
-      .then(({ data }) => {
-        const { park } = getRandomItemFromArr(data.candidates);
+      .then((data) => {
+        const park = getRandomItemFromArr(data.candidates);
         return {
           description: park.address,
           title:
@@ -32,7 +31,7 @@ export const ParkApi = {
         };
       })
       .catch((err) => {
-        console.log("park error", err);
+        console.log("Park API error", err);
       });
   },
 };
