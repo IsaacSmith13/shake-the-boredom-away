@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   AsyncStorage,
   Image,
+  KeyboardAvoidingView,
   Linking,
   ScrollView,
   StyleSheet,
@@ -22,6 +23,7 @@ import { Colors } from "./src/models/colors.js";
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
 import NewIdea from "./src/components/new-idea.js";
+import { isSmall } from "./src/models/phone-size.js";
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -247,15 +249,19 @@ function ZipCodeForm({ onPress, disabled, onChange }) {
           />
         </View>
       </ScrollView>
-      <TouchableOpacity
-        disabled={disabled}
-        style={disabled ? styles.disabledButton : styles.button}
-        onPress={onPress}
-      >
-        <Text style={disabled ? styles.disabledButtonText : styles.buttonText}>
-          Submit
-        </Text>
-      </TouchableOpacity>
+      <KeyboardAvoidingView behavior={"padding"}>
+        <TouchableOpacity
+          disabled={disabled}
+          style={disabled ? styles.disabledButton : styles.button}
+          onPress={onPress}
+        >
+          <Text
+            style={disabled ? styles.disabledButtonText : styles.buttonText}
+          >
+            Submit
+          </Text>
+        </TouchableOpacity>
+      </KeyboardAvoidingView>
     </View>
   );
 }
@@ -280,7 +286,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    fontSize: 38,
+    fontSize: isSmall() ? 24 : 38,
     fontWeight: "700",
     color: Colors.accent,
     paddingBottom: 15,
@@ -329,7 +335,7 @@ const styles = StyleSheet.create({
   button: {
     width: "100%",
     height: 60,
-    marginVertical: 50,
+    marginVertical: 24,
     backgroundColor: Colors.text,
     borderRadius: 12,
     justifyContent: "center",
@@ -362,6 +368,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 24,
     fontWeight: "700",
+    fontFamily: "bangers-regular",
   },
   introLogo: {
     marginTop: 75,
