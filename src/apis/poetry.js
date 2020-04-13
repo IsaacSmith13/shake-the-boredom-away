@@ -9,7 +9,7 @@ export const PoetryApi = {
         return {
           header: "Distract yourself with something exquisite:",
           title: `${title}\nAuthor: ${poet.name}`,
-          externalLink: url,
+          titleLink: url,
           description: content,
         };
       })

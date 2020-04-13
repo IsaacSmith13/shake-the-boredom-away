@@ -151,13 +151,18 @@ export default function App() {
   const [dataLoaded, setDataLoaded] = useState(false);
 
   const handleShake = async () => {
-    setActivity(
-      await getActivity({
-        numberOfPeople: 1,
-        streamingServices: [StreamingServices.netflix],
-        zipCode: 43215,
-      })
-    );
+    try {
+      setActivity(
+        await getActivity({
+          numberOfPeople: 1,
+          streamingServices: [StreamingServices.netflix],
+          zipCode: 43215,
+        })
+      );
+    } catch (err) {
+      console.log(err);
+      handleShake();
+    }
   };
 
   const onPress = async () => {
