@@ -6,6 +6,7 @@ export const InsideCategories = {
   cooking: "cooking",
   // drinkTooMuch: "drink too much",
   // reading: "reading",
+  cuteAnimal: "cuteAnimal",
 };
 
 export const OutsideCategories = {
