@@ -11,26 +11,27 @@ import { getRandomKeyFromObj } from "./utils/getRandomItem.js";
 import { MusicApi } from "./apis/music.js";
 import { PoetryApi } from "./apis/poetry.js";
 
-let BookApi = (DisneyPlusApi = AmazonPrimeApi = NetflixApi = HuluApi = {
-  getRecommendation: () => {
-    return {
-      title: "Watch Mulan on Disney Plus!",
-      description: "yada yada",
-      externalLink: "https://disneyplus.com/watch/mulan",
-    };
-  },
-});
+// let BookApi = (DisneyPlusApi = AmazonPrimeApi = NetflixApi = HuluApi = {
+//   getRecommendation: () => {
+//     return {
+//       title: "Watch Mulan on Disney Plus!",
+//       description: "yada yada",
+//       externalLink: "https://disneyplus.com/watch/mulan",
+//     };
+//   },
+// });
 
 export async function getActivity({
-  streamingServices,
   zipCode,
-  numberOfPeople,
+  latLong
 }) {
+  console.log("lat long at top", latLong)
+  console.log("zip code at top", zipCode)
+
   return await getActivityForCategory({
-    category: await getCategory(zipCode, numberOfPeople),
-    numberOfPeople,
-    streamingServices,
+    category: await getCategory(zipCode),
     zipCode,
+    latLong
   });
 }
 
@@ -49,11 +50,13 @@ async function getActivityForCategory({
   numberOfPeople,
   streamingServices,
   zipCode,
+  latLong
 }) {
   if (OutsideCategories.hasOwnProperty(category)) {
+    console.log("lat long in outside categories", latLong)
     switch (category) {
       case OutsideCategories.park:
-        return await ParkApi.getRecommendation(zipCode, weather);
+        return await ParkApi.getRecommendation(weather, latLong);
       default:
         return {};
     }

@@ -24,6 +24,7 @@ import * as Font from "expo-font";
 import { AppLoading } from "expo";
 import NewIdea from "./src/components/new-idea.js";
 import { isSmall } from "./src/models/phone-size.js";
+import { getLatLong } from "./src/utils/getLatLong.js";
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -148,24 +149,39 @@ export default function App() {
   const [activity, setActivity] = useState();
   const [hasSavedZipCode, setHasSavedZipCode] = useState();
   const [zipCode, setZipCode] = useState();
+  const [latLong, setLatLong] = useState();
   const [dataLoaded, setDataLoaded] = useState(false);
-
+    
   const handleShake = async () => {
     setActivity(
       await getActivity({
-        numberOfPeople: 1,
-        streamingServices: [StreamingServices.netflix],
-        zipCode: 43215,
+        zipCode,
+        latLong
       })
     );
   };
 
+  const zipValid = async () =>{
+    try{
+      let coordinates = await getLatLong(zipCode);
+      return true;
+    } catch(error){
+      console.log("invalid zip")
+      return false;
+    }
+  }
+
   const onPress = async () => {
+    if (zipValid()){
     try {
       await AsyncStorage.setItem("zipCode", zipCode);
     } catch (error) {
       console.log("failed to save zipCode to local storage", error);
     }
+  } else {
+    console.log("errrrrrrr")
+    // LOGIC FOR EMPTY ZIP CODE 
+  }
   };
 
   useEffect(() => {
@@ -180,6 +196,8 @@ export default function App() {
           const storageZipCode = await AsyncStorage.getItem("zipCode");
           setHasSavedZipCode(!!storageZipCode);
           !!storageZipCode && setZipCode(storageZipCode);
+          const coordinates = await getLatLong(zipCode);
+          setLatLong(coordinates);
         } catch (error) {
           console.log("failed to read zipCode from local storage", error);
         }
@@ -219,7 +237,6 @@ export default function App() {
   ) : (
     <ZipCodeForm
       onChange={(zipCode) => {
-        console.log(zipCode);
         setZipCode(zipCode);
       }}
       onPress={onPress}
