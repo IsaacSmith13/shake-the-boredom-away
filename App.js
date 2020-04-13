@@ -19,29 +19,28 @@ import {
 } from "./src/models/categories.js";
 import PropTypes from "prop-types";
 import { Colors } from "./src/models/colors.js";
-import * as Font from 'expo-font';
-import { AppLoading } from 'expo';
-import NewIdea from "./src/components/new-idea.js"
+import * as Font from "expo-font";
+import { AppLoading } from "expo";
+import NewIdea from "./src/components/new-idea.js";
 
 const fetchFonts = () => {
   return Font.loadAsync({
-  "bangers-regular":require('./assets/fonts/Bangers-Regular.ttf'),
-  "montserrat-regular":require('./assets/fonts/Montserrat-Regular.ttf')
+    "bangers-regular": require("./assets/fonts/Bangers-Regular.ttf"),
+    "montserrat-regular": require("./assets/fonts/Montserrat-Regular.ttf"),
   });
-  };
+};
 
 const renderContent = (activity) => {
   if (!activity) {
     return (
       <>
-      <Text style={styles.header}>
-        Bored in quarantine?
-      </Text>
-      <Text style={styles.subHeader}> Give me a shake (or press the button) for a bright idea to help stave off that inevitable boredeom</Text>
-      <NewIdea
-        viewBox="0 0 1100 1100"
-        style={{marginTop: 75}}
-       />
+        <Text style={styles.header}>Bored in quarantine?</Text>
+        <Text style={styles.subHeader}>
+          {" "}
+          Give me a shake (or press the button) for a bright idea to help stave
+          off that inevitable boredeom
+        </Text>
+        <NewIdea viewBox="0 0 1100 1100" style={{ marginTop: 75 }} />
       </>
     );
   }
@@ -171,15 +170,7 @@ export default function App() {
   useEffect(() => {
     RNShake.addEventListener("ShakeEvent", () => handleShake());
     return () => RNShake.removeEventListener("ShakeEvent");
-  },[]);
-
-  if(!dataLoaded){
-    return(
-      <AppLoading
-        startAsync={fetchFonts}
-        onFinish={()=>setDataLoaded(true)}/>
-    )
-  }
+  }, []);
 
   useEffect(() => {
     if (!hasSavedZipCode) {
@@ -196,6 +187,15 @@ export default function App() {
       getZip();
     }
   });
+
+  if (!dataLoaded) {
+    return (
+      <AppLoading
+        startAsync={fetchFonts}
+        onFinish={() => setDataLoaded(true)}
+      />
+    );
+  }
 
   return hasSavedZipCode ? (
     <View style={styles.fullScreen}>
@@ -274,7 +274,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f9f6e5",
     paddingHorizontal: 12,
     paddingTop: 60,
-    textAlign: "center"
+    textAlign: "center",
   },
   container: {
     justifyContent: "center",
@@ -305,7 +305,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "#39373B",
     paddingBottom: 15,
-    textAlign: "center"
+    textAlign: "center",
   },
   hyperlink: {
     fontSize: 18,
