@@ -36,11 +36,10 @@ const renderContent = (activity) => {
       <>
         <Text style={styles.header}>Bored in quarantine?</Text>
         <Text style={styles.subHeader}>
-          {" "}
           Give me a shake (or press the button) for a bright idea to help stave
           off that inevitable boredeom
         </Text>
-        <NewIdea viewBox="0 0 1100 1100" style={{ marginTop: 75 }} />
+        <NewIdea viewBox="0 0 1100 1100" style={styles.introLogo} />
       </>
     );
   }
@@ -271,7 +270,7 @@ const styles = StyleSheet.create({
   fullScreen: {
     height: "100%",
     width: "100%",
-    backgroundColor: "#f9f6e5",
+    backgroundColor: Colors.secondary,
     paddingHorizontal: 12,
     paddingTop: 60,
     textAlign: "center",
@@ -283,14 +282,14 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 38,
     fontWeight: "700",
-    color: "#D24C3B",
+    color: Colors.accent,
     paddingBottom: 15,
     fontFamily: "bangers-regular",
     textAlign: "center",
   },
   subHeader: {
     fontSize: 14,
-    color: "#39373B",
+    color: Colors.text,
     paddingBottom: 15,
     fontFamily: "montserrat-regular",
     textAlign: "center",
@@ -299,11 +298,11 @@ const styles = StyleSheet.create({
     fontSize: 22,
     paddingBottom: 15,
     textDecorationLine: "underline",
-    color: "#EBBC43",
+    color: Colors.hyperlink,
   },
   paragraph: {
     fontSize: 18,
-    color: "#39373B",
+    color: Colors.text,
     paddingBottom: 15,
     textAlign: "center",
   },
@@ -311,7 +310,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     paddingBottom: 24,
     textDecorationLine: "underline",
-    color: "#EBBC43",
+    color: Colors.hyperlink,
     textAlign: "center",
   },
   image: {
@@ -323,12 +322,12 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 60,
     marginVertical: 50,
-    backgroundColor: "#39373B",
+    backgroundColor: Colors.text,
     borderRadius: 12,
     justifyContent: "center",
   },
   buttonText: {
-    color: "#EBBC4E",
+    color: Colors.primary,
     textAlign: "center",
     fontSize: 24,
     fontWeight: "700",
@@ -355,5 +354,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 24,
     fontWeight: "700",
+  },
+  introLogo: {
+    marginTop: 75,
   },
 });
