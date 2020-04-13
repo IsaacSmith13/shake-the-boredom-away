@@ -31,8 +31,7 @@ export const ParkApi = {
             "Take a stroll in this park!",
           image: "https://www.portlandoregon.gov/parks/finder/index.cfm?action=ViewFile&PolPhotosID=289",
           description: `Current Weather: ${weather.main}`,
-          // TO DO: ADD CALL FOR TEMP
-          description2: `Current Temperature: ${weather.temp}`
+          description2: `Current Temperature: ${weather.temp} ℉`
 
         };
       })
