@@ -1,5 +1,3 @@
-import { getRandomItemFromArr } from "../utils/getRandomItem.js";
-
 export const DogPictureApi = {
   getRecommendation: async () =>
     await fetch("https://dog.ceo/api/breeds/image/random")
