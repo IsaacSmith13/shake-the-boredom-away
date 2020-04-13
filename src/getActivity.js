@@ -7,9 +7,17 @@ import { determineGoodWeather } from "./models/weather.js";
 import { StreamingServices } from "./models/streaming-services.js";
 import { CookingApi } from "./apis/cooking.js";
 import { ParkApi } from "./apis/park.js";
-import { getRandomKeyFromObj } from "./utils/getRandomItem.js";
+import {
+  getRandomKeyFromObj,
+  getRandomItemFromArr,
+} from "./utils/getRandomItem.js";
 import { MusicApi } from "./apis/music.js";
 import { PoetryApi } from "./apis/poetry.js";
+import { DogPictureApi } from "./apis/dog-picture.js";
+import { CatPictureApi } from "./apis/cat-picture.js";
+import { BookApi } from "./apis/book.js";
+
+const animalPictureApis = [DogPictureApi, CatPictureApi];
 
 // let BookApi = (DisneyPlusApi = AmazonPrimeApi = NetflixApi = HuluApi = {
 //   getRecommendation: () => {
@@ -76,6 +84,10 @@ async function getActivityForCategory({
       return await MusicApi.getRecommendation();
     case InsideCategories.poetry:
       return await PoetryApi.getRecommendation();
+    case InsideCategories.cuteAnimal:
+      return await getRandomItemFromArr(animalPictureApis).getRecommendation();
+    case InsideCategories.reading:
+      return await BookApi.getRecommendation();
     default:
       return {};
   }

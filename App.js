@@ -50,6 +50,8 @@ const renderContent = (activity) => {
   switch (activity.category) {
     case InsideCategories.music:
       return renderSong(activity);
+    case InsideCategories.reading:
+      return renderBook(activity);
     default:
       return renderDefault(activity);
   }
@@ -144,6 +146,22 @@ const renderSong = ({ titleLink, title, releaseDate, artist }) => {
 
   return content;
 };
+
+const renderBook = ({ title, titleLink, author }) => [
+  <Text style={styles.header} key={"header"}>
+    There’s nothing quite like reading on a rainy (or apocalyptic) day
+  </Text>,
+  <Text
+    style={styles.subHeader}
+    onPress={() => Linking.openURL(titleLink)}
+    key={"title"}
+  >
+    Book: <Text style={styles.headerHyperlink}>{title}</Text>
+  </Text>,
+  <Text style={styles.subHeader} key={"author"}>
+    Author: <Text style={styles.subHeader}>{author}</Text>
+  </Text>,
+];
 
 export default function App() {
   const [activity, setActivity] = useState();

@@ -4,5 +4,9 @@ export function getRandomKeyFromObj(obj) {
 }
 
 export function getRandomItemFromArr(items) {
+  if (!items || !items.length) {
+    return items;
+  }
+
   return items[Math.floor(Math.random() * items.length)];
 }
