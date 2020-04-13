@@ -3,7 +3,7 @@ import Svg, { Path, Circle } from "react-native-svg";
 
 function SvgUndrawNewIdeasJdea(props) {
   return (
-    <Svg data-name="Layer 1" width={300} height={300} {...props}>
+    <Svg data-name="Layer 1" width={"100%"} height={300} {...props}>
       <Path
         d="M956.999 270.31c0 35.17-8.33 64.12-22.78 88.92a177.678 177.678 0 01-16.19 23.25c-53.12 64.97-151.88 100.53-241.14 158.13-263.48 170.02-292.02-102.42-280.12-270.3 4.8-67.74 31.18-129.79 73.09-177.3a278.22 278.22 0 0128.45-27.97C545.889 24.52 607.359 0 676.889 0c119.29 0 221.16 71.95 261.55 173.34a261.85 261.85 0 0118.56 96.97z"
         fill="#D24C3B"
@@ -102,4 +102,3 @@ function SvgUndrawNewIdeasJdea(props) {
 }
 
 export default SvgUndrawNewIdeasJdea;
-
