@@ -5,7 +5,7 @@ export const InsideCategories = {
   // cardGame: "card game",
   cooking: "cooking",
   // drinkTooMuch: "drink too much",
-  // reading: "reading",
+  reading: "reading",
   cuteAnimal: "cuteAnimal",
 };
 

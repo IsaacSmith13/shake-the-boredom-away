@@ -15,10 +15,11 @@ import { MusicApi } from "./apis/music.js";
 import { PoetryApi } from "./apis/poetry.js";
 import { DogPictureApi } from "./apis/dog-picture.js";
 import { CatPictureApi } from "./apis/cat-picture.js";
+import { BookApi } from "./apis/book.js";
 
 const animalPictureApis = [DogPictureApi, CatPictureApi];
 
-let BookApi = (DisneyPlusApi = AmazonPrimeApi = NetflixApi = HuluApi = {
+let DisneyPlusApi = (AmazonPrimeApi = NetflixApi = HuluApi = {
   getRecommendation: () => {
     return {
       title: "Watch Mulan on Disney Plus!",
@@ -82,6 +83,8 @@ async function getActivityForCategory({
       return await PoetryApi.getRecommendation();
     case InsideCategories.cuteAnimal:
       return await getRandomItemFromArr(animalPictureApis).getRecommendation();
+    case InsideCategories.reading:
+      return await BookApi.getRecommendation();
     default:
       return {};
   }
