@@ -79,6 +79,7 @@ const renderDefault = ({
   if (title) {
     content.push(
       <Text
+        selectable
         style={titleLink ? styles.hyperlink : styles.subHeader}
         onPress={titleLink ? () => Linking.openURL(titleLink) : undefined}
         key={"title"}
@@ -169,37 +170,50 @@ export default function App() {
   const [zipCode, setZipCode] = useState();
   const [latLong, setLatLong] = useState();
   const [dataLoaded, setDataLoaded] = useState(false);
-    
+
   const handleShake = async () => {
     setActivity(
       await getActivity({
         zipCode,
-        latLong
+        latLong,
       })
     );
   };
 
-  const zipValid = async () =>{
-    try{
+  const zipValid = async () => {
+    try {
       let coordinates = await getLatLong(zipCode);
       return true;
-    } catch(error){
-      console.log("invalid zip")
+    } catch (error) {
+      console.log("invalid zip");
       return false;
     }
-  }
+  };
 
   const onPress = async () => {
-    if (zipValid()){
-    try {
-      await AsyncStorage.setItem("zipCode", zipCode);
-    } catch (error) {
-      console.log("failed to save zipCode to local storage", error);
+    if (zipValid()) {
+      try {
+        await AsyncStorage.setItem("zipCode", zipCode);
+        setHasSavedZipCode(true);
+      } catch (error) {
+        console.log("failed to save zipCode to local storage", error);
+      }
+    } else {
+      console.log("errrrrrrr");
+      // LOGIC FOR EMPTY ZIP CODE
     }
-  } else {
-    console.log("errrrrrrr")
-    // LOGIC FOR EMPTY ZIP CODE 
-  }
+  };
+
+  const getZip = async () => {
+    try {
+      const storageZipCode = await AsyncStorage.getItem("zipCode");
+      setHasSavedZipCode(!!storageZipCode);
+      !!storageZipCode && setZipCode(storageZipCode);
+      const coordinates = await getLatLong(zipCode);
+      setLatLong(coordinates);
+    } catch (error) {
+      console.log("failed to read zipCode from local storage", error);
+    }
   };
 
   useEffect(() => {
@@ -208,22 +222,8 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    if (!hasSavedZipCode) {
-      const getZip = async () => {
-        try {
-          const storageZipCode = await AsyncStorage.getItem("zipCode");
-          setHasSavedZipCode(!!storageZipCode);
-          !!storageZipCode && setZipCode(storageZipCode);
-          const coordinates = await getLatLong(zipCode);
-          setLatLong(coordinates);
-        } catch (error) {
-          console.log("failed to read zipCode from local storage", error);
-        }
-      };
-
-      getZip();
-    }
-  });
+    !hasSavedZipCode && getZip();
+  }, [zipCode, hasSavedZipCode, getZip]);
 
   if (!dataLoaded) {
     return (
