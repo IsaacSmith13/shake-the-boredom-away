@@ -36,11 +36,10 @@ const renderContent = (activity) => {
       <>
         <Text style={styles.header}>Bored in quarantine?</Text>
         <Text style={styles.subHeader}>
-          {" "}
           Give me a shake (or press the button) for a bright idea to help stave
           off that inevitable boredeom
         </Text>
-        <NewIdea viewBox="0 0 1100 1100" style={{ marginTop: 75 }} />
+        <NewIdea viewBox="0 0 1100 1100" style={styles.introLogo} />
       </>
     );
   }
@@ -355,5 +354,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 24,
     fontWeight: "700",
+  },
+  introLogo: {
+    marginTop: 75,
   },
 });
