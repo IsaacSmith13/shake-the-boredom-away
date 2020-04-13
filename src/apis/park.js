@@ -1,8 +1,9 @@
 import { BETTER_ZIP_KEY } from "../../private-keys.js";
 import { getRandomItemFromArr } from "../utils/getRandomItem.js";
+import { parkImg } from "../../assets/images/park.jpeg";
 
 export const ParkApi = {
-  getRecommendation: async (zipCode) => {
+  getRecommendation: async (zipCode, weather) => {
     console.log("zipCode", zipCode)
     let latLong = await fetch(
       `https://us1.locationiq.com/v1/search.php?key=${BETTER_ZIP_KEY}&postalcode=${zipCode}&country=United%20States&format=json`
@@ -18,7 +19,6 @@ export const ParkApi = {
         console.log("Postal code to latitude and longitude API error", err);
       });
 
-      console.log("latitude my friends", latLong.lat, "LONGITUDE", latLong.long)
     return await fetch(
       `https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?f=json&category=park&location=${latLong.long},${latLong.lat}&outFields=Place_addr,PlaceName&maxLocations=5`
     )
@@ -28,7 +28,12 @@ export const ParkApi = {
         return {
           description: park.address,
           header:
-            "Nothing soothes boredom like taking a walk. Take a stroll in this park!",
+            "Take a stroll in this park!",
+          image: "https://www.portlandoregon.gov/parks/finder/index.cfm?action=ViewFile&PolPhotosID=289",
+          description: `Current Weather: ${weather.main}`,
+          // TO DO: ADD CALL FOR TEMP
+          description2: `Current Temperature: ${weather.temp}`
+
         };
       })
       .catch((err) => {

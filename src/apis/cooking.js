@@ -3,6 +3,7 @@ import { getRandomItemFromArr } from "../utils/getRandomItem.js";
 
 export const CookingApi = {
   getRecommendation: async () => {
+
     const commonLetters = "abcdefghijklmnoprstuy";
     const searchTerm = commonLetters.charAt(
       Math.floor(Math.random() * commonLetters.length)
@@ -14,12 +15,13 @@ export const CookingApi = {
       .then((response) => response.json())
       .then(({ hits }) => {
         const { recipe } = getRandomItemFromArr(hits);
+        console.log(recipe.image)
         return {
           title: recipe.label,
           titleLink: recipe.url,
           image: recipe.image,
           header:
-            "Nothing soothes boredom like food. Try making the following recipe!",
+            "Get cheffin' with this recipe!",
         };
       })
       .catch((err) => {

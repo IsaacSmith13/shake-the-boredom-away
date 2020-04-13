@@ -19,15 +19,30 @@ import {
 } from "./src/models/categories.js";
 import PropTypes from "prop-types";
 import { Colors } from "./src/models/colors.js";
+import * as Font from 'expo-font';
+import { AppLoading } from 'expo';
+import NewIdea from "./src/components/new-idea.js"
+
+const fetchFonts = () => {
+  return Font.loadAsync({
+  "bangers-regular":require('./assets/fonts/Bangers-Regular.ttf'),
+  "montserrat-regular":require('./assets/fonts/Montserrat-Regular.ttf')
+  });
+  };
 
 const renderContent = (activity) => {
   if (!activity) {
     return (
+      <>
       <Text style={styles.header}>
-        It's time to shake your quarantine boredom away! Shake your phone or
-        press the button for something that will help stave off that inevitable
-        boredom for a brief time
+        Bored in quarantine?
       </Text>
+      <Text style={styles.subHeader}> Give me a shake (or press the button) for a bright idea to help stave off that inevitable boredeom</Text>
+      <NewIdea
+        viewBox="0 0 1100 1100"
+        style={{marginTop: 75}}
+       />
+      </>
     );
   }
 
@@ -104,24 +119,24 @@ const renderDefault = ({
 const renderSong = ({ titleLink, title, releaseDate, artist }) => {
   const content = [
     <Text style={styles.header} key={"header"}>
-      Here's a song recommendation to get you off your seat and start moving!
+      Get moving to this tune!
     </Text>,
     <Text
-      style={styles.header}
+      style={styles.subHeader}
       onPress={() => Linking.openURL(titleLink)}
       key={"title"}
     >
       Song: <Text style={styles.headerHyperlink}>{title}</Text>
     </Text>,
-    <Text style={styles.header} key={"artist"}>
-      Artist: <Text style={styles.header}>{artist}</Text>
+    <Text style={styles.subHeader} key={"artist"}>
+      Artist: <Text style={styles.subHeader}>{artist}</Text>
     </Text>,
   ];
 
   if (releaseDate) {
     content.push(
-      <Text style={styles.header} key={"releaseDate"}>
-        Release Date: <Text style={styles.header}>{releaseDate}</Text>
+      <Text style={styles.subHeader} key={"releaseDate"}>
+        Release Date: <Text style={styles.subHeader}>{releaseDate}</Text>
       </Text>
     );
   }
@@ -133,6 +148,7 @@ export default function App() {
   const [activity, setActivity] = useState();
   const [hasSavedZipCode, setHasSavedZipCode] = useState();
   const [zipCode, setZipCode] = useState();
+  const [dataLoaded, setDataLoaded] = useState(false);
 
   const handleShake = async () => {
     setActivity(
@@ -154,9 +170,16 @@ export default function App() {
 
   useEffect(() => {
     RNShake.addEventListener("ShakeEvent", () => handleShake());
-
     return () => RNShake.removeEventListener("ShakeEvent");
-  }, []);
+  },[]);
+
+  if(!dataLoaded){
+    return(
+      <AppLoading
+        startAsync={fetchFonts}
+        onFinish={()=>setDataLoaded(true)}/>
+    )
+  }
 
   useEffect(() => {
     if (!hasSavedZipCode) {
@@ -248,37 +271,48 @@ const styles = StyleSheet.create({
   fullScreen: {
     height: "100%",
     width: "100%",
-    backgroundColor: Colors.secondary,
+    backgroundColor: "#f9f6e5",
     paddingHorizontal: 12,
     paddingTop: 60,
+    textAlign: "center"
   },
   container: {
     justifyContent: "center",
     flex: 1,
   },
   header: {
-    fontSize: 28,
+    fontSize: 38,
     fontWeight: "700",
-    color: "white",
+    color: "#D24C3B",
     paddingBottom: 15,
+    fontFamily: "bangers-regular",
+    textAlign: "center",
+  },
+  subHeader: {
+    fontSize: 14,
+    color: "#39373B",
+    paddingBottom: 15,
+    fontFamily: "montserrat-regular",
+    textAlign: "center",
   },
   headerHyperlink: {
-    fontSize: 28,
-    fontWeight: "700",
+    fontSize: 22,
     paddingBottom: 15,
     textDecorationLine: "underline",
-    color: Colors.hyperlink,
+    color: "#EBBC43",
   },
   paragraph: {
     fontSize: 18,
-    color: "white",
+    color: "#39373B",
     paddingBottom: 15,
+    textAlign: "center"
   },
   hyperlink: {
     fontSize: 18,
     paddingBottom: 24,
     textDecorationLine: "underline",
-    color: Colors.hyperlink,
+    color: "#EBBC43",
+    textAlign: "center",
   },
   image: {
     flex: 1,
@@ -288,16 +322,17 @@ const styles = StyleSheet.create({
   button: {
     width: "100%",
     height: 60,
-    marginVertical: 24,
-    backgroundColor: Colors.primary,
+    marginVertical: 50,
+    backgroundColor: "#39373B",
     borderRadius: 12,
     justifyContent: "center",
   },
   buttonText: {
-    color: "white",
+    color: "#EBBC4E",
     textAlign: "center",
     fontSize: 24,
     fontWeight: "700",
+    fontFamily: "bangers-regular",
   },
   textInput: {
     backgroundColor: "white",

@@ -34,9 +34,11 @@ export async function getActivity({
   });
 }
 
+let weather;
+
 async function getCategory(zipCode, numberOfPeople) {
-  let weather = await determineGoodWeather({ zipCode });
-  if (weather === "rain") {
+  weather = await determineGoodWeather({ zipCode });
+  if (weather.main === "rain") {
     return getRandomKeyFromObj(InsideCategories);
   }
   return getRandomKeyFromObj(Categories);
@@ -51,7 +53,7 @@ async function getActivityForCategory({
   if (OutsideCategories.hasOwnProperty(category)) {
     switch (category) {
       case OutsideCategories.park:
-        return await ParkApi.getRecommendation(zipCode);
+        return await ParkApi.getRecommendation(zipCode, weather);
       default:
         return {};
     }
