@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import {
+  AsyncStorage,
   Image,
   Linking,
+  ScrollView,
   StyleSheet,
   Text,
-  ScrollView,
+  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -15,6 +17,7 @@ import {
   InsideCategories,
   OutsideCategories,
 } from "./src/models/categories.js";
+import PropTypes from "prop-types";
 import { Colors } from "./src/models/colors.js";
 
 const renderContent = (activity) => {
@@ -128,6 +131,8 @@ const renderSong = ({ titleLink, title, releaseDate, artist }) => {
 
 export default function App() {
   const [activity, setActivity] = useState();
+  const [hasSavedZipCode, setHasSavedZipCode] = useState();
+  const [zipCode, setZipCode] = useState();
 
   const handleShake = async () => {
     setActivity(
@@ -139,13 +144,37 @@ export default function App() {
     );
   };
 
+  const onPress = async () => {
+    try {
+      await AsyncStorage.setItem("zipCode", zipCode);
+    } catch (error) {
+      console.log("failed to save zipCode to local storage", error);
+    }
+  };
+
   useEffect(() => {
     RNShake.addEventListener("ShakeEvent", () => handleShake());
 
     return () => RNShake.removeEventListener("ShakeEvent");
   }, []);
 
-  return (
+  useEffect(() => {
+    if (!hasSavedZipCode) {
+      const getZip = async () => {
+        try {
+          const storageZipCode = await AsyncStorage.getItem("zipCode");
+          setHasSavedZipCode(!!storageZipCode);
+          !!storageZipCode && setZipCode(storageZipCode);
+        } catch (error) {
+          console.log("failed to read zipCode from local storage", error);
+        }
+      };
+
+      getZip();
+    }
+  });
+
+  return hasSavedZipCode ? (
     <View style={styles.fullScreen}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.container}>
@@ -163,8 +192,57 @@ export default function App() {
         <Text style={styles.buttonText}>Get a suggestion!</Text>
       </TouchableOpacity>
     </View>
+  ) : (
+    <ZipCodeForm
+      onChange={(zipCode) => {
+        console.log(zipCode);
+        setZipCode(zipCode);
+      }}
+      onPress={onPress}
+      disabled={zipCode?.length !== 5}
+    />
   );
 }
+
+function ZipCodeForm({ onPress, disabled, onChange }) {
+  return (
+    <View style={styles.fullScreen}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <View style={styles.container}>
+          <Text style={styles.header}>
+            Please enter your zip code so we can recommend activities in your
+            area
+          </Text>
+          <TextInput
+            autoCompleteType={"postal-code"}
+            autoFocus
+            label={"zip code"}
+            placeholder={"12345"}
+            style={styles.textInput}
+            onChangeText={onChange}
+            keyboardType={"numeric"}
+            maxLength={5}
+          />
+        </View>
+      </ScrollView>
+      <TouchableOpacity
+        disabled={disabled}
+        style={disabled ? styles.disabledButton : styles.button}
+        onPress={onPress}
+      >
+        <Text style={disabled ? styles.disabledButtonText : styles.buttonText}>
+          Submit
+        </Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+ZipCodeForm.propTypes = {
+  onPress: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
+  onChange: PropTypes.func,
+};
 
 const styles = StyleSheet.create({
   fullScreen: {
@@ -217,6 +295,28 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "white",
+    textAlign: "center",
+    fontSize: 24,
+    fontWeight: "700",
+  },
+  textInput: {
+    backgroundColor: "white",
+    height: 50,
+    marginLeft: "auto",
+    marginRight: "auto",
+    paddingHorizontal: 10,
+    width: "40%",
+  },
+  disabledButton: {
+    width: "100%",
+    height: 60,
+    marginVertical: 24,
+    backgroundColor: Colors.disabled,
+    borderRadius: 12,
+    justifyContent: "center",
+  },
+  disabledButtonText: {
+    color: Colors.secondary,
     textAlign: "center",
     fontSize: 24,
     fontWeight: "700",
