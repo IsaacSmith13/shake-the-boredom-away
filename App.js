@@ -35,7 +35,7 @@ const renderContent = (activity) => {
     return (
       <>
         <Text style={styles.header}>Bored in quarantine?</Text>
-        <Text style={styles.subHeader}>
+        <Text style={styles.subHeaderLanding}>
           Give me a shake (or press the button) for a bright idea to help stave
           off that inevitable boredeom
         </Text>
@@ -74,7 +74,7 @@ const renderDefault = ({
   if (title) {
     content.push(
       <Text
-        style={titleLink ? styles.hyperlink : styles.paragraph}
+        style={titleLink ? styles.hyperlink : styles.subHeader}
         onPress={titleLink ? () => Linking.openURL(titleLink) : undefined}
         key={"title"}
       >
@@ -287,8 +287,16 @@ const styles = StyleSheet.create({
     fontFamily: "bangers-regular",
     textAlign: "center",
   },
-  subHeader: {
+  subHeaderLanding: {
     fontSize: 14,
+    color: Colors.text,
+    paddingBottom: 15,
+    fontFamily: "montserrat-regular",
+    textAlign: "center",
+  },
+  subHeader: {
+    fontSize: 22,
+    fontWeight: "700",
     color: Colors.text,
     paddingBottom: 15,
     fontFamily: "montserrat-regular",
