@@ -175,6 +175,7 @@ const styles = StyleSheet.create({
   },
   container: {
     justifyContent: "center",
+    flex: 1,
   },
   header: {
     fontSize: 28,
@@ -201,8 +202,9 @@ const styles = StyleSheet.create({
     color: "#00bcd4",
   },
   image: {
+    flex: 1,
+    resizeMode: "contain",
     width: "100%",
-    height: "60%",
   },
   button: {
     width: "100%",
