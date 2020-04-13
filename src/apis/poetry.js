@@ -8,7 +8,7 @@ export const PoetryApi = {
         const { title, content, url, poet } = getRandomItemFromArr(poems);
         return {
           header:
-            "Distract yourself with something exquisite:",
+            "Distract yourself with something exquisite!",
           title,
           externalLink: url,
           description: `Author: ${poet.name}`,

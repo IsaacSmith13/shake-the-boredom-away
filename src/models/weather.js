@@ -6,7 +6,6 @@ export async function determineGoodWeather({ zipCode }) {
   );
 
   let data = await response.json();
-  console.log("weather data", data)
   return {
     main: data.weather[0].main,
     temp: ((data.main.temp - 273.15) * 9/5 + 32).toFixed(1)

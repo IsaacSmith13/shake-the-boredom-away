@@ -38,7 +38,7 @@ let weather;
 
 async function getCategory(zipCode, numberOfPeople) {
   weather = await determineGoodWeather({ zipCode });
-  if (weather.main === "rain") {
+  if (weather.main === "Rain") {
     return getRandomKeyFromObj(InsideCategories);
   }
   return getRandomKeyFromObj(Categories);
