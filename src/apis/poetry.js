@@ -7,12 +7,10 @@ export const PoetryApi = {
       .then((poems) => {
         const { title, content, url, poet } = getRandomItemFromArr(poems);
         return {
-          header:
-            "Distract yourself with something exquisite!",
-          title,
+          header: "Distract yourself with something exquisite:",
+          title: `${title}\nAuthor: ${poet.name}`,
           externalLink: url,
-          description: `Author: ${poet.name}`,
-          description2: content,
+          description: content,
         };
       })
       .catch((err) => {
