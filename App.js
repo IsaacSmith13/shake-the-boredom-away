@@ -15,6 +15,7 @@ import {
   InsideCategories,
   OutsideCategories,
 } from "./src/models/categories.js";
+import { Colors } from "./src/models/colors.js";
 
 const renderContent = (activity) => {
   if (!activity) {
@@ -169,7 +170,7 @@ const styles = StyleSheet.create({
   fullScreen: {
     height: "100%",
     width: "100%",
-    backgroundColor: "#4d4646",
+    backgroundColor: Colors.secondary,
     paddingHorizontal: 12,
     paddingTop: 60,
   },
@@ -188,7 +189,7 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     paddingBottom: 15,
     textDecorationLine: "underline",
-    color: "#00bcd4",
+    color: Colors.hyperlink,
   },
   paragraph: {
     fontSize: 18,
@@ -199,7 +200,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     paddingBottom: 24,
     textDecorationLine: "underline",
-    color: "#00bcd4",
+    color: Colors.hyperlink,
   },
   image: {
     flex: 1,
@@ -210,7 +211,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 60,
     marginVertical: 24,
-    backgroundColor: "#7fcd91",
+    backgroundColor: Colors.primary,
     borderRadius: 12,
     justifyContent: "center",
   },
